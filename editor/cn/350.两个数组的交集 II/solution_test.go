@@ -1,6 +1,7 @@
 package leetcode
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -45,11 +46,26 @@ import (
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func intersect(nums1 []int, nums2 []int) []int {
-	return nums1
+	kv := map[int]int{}
+	for _, i := range nums1 {
+		kv[i]++
+	}
+
+	k := 0
+	for _, i := range nums2 {
+
+		if kv[i] > 0 {
+			kv[i]--
+			nums2[k] = i
+			k++
+		}
+	}
+	return nums2[:k]
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
 
 func TestIntersectionOfTwoArraysIi(t *testing.T) {
-
+	fmt.Println(intersect([]int{1, 2, 2, 1}, []int{2, 2}))
+	fmt.Println(intersect([]int{4, 9, 5}, []int{9, 4, 9, 8, 4}))
 }
