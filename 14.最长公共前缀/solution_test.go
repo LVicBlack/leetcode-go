@@ -1,6 +1,9 @@
 package leetcode
 
 import (
+	"fmt"
+	"reflect"
+	"strings"
 	"testing"
 )
 
@@ -36,13 +39,58 @@ import (
 //
 // Related Topics 字典树 字符串 👍 2835 👎 0
 
-//leetcode submit region begin(Prohibit modification and deletion)
+// leetcode submit region begin(Prohibit modification and deletion)
 func longestCommonPrefix(strs []string) string {
-	return strs[0]
+	res := strs[0]
+	for i := 1; i < len(strs); i++ {
+		if len(res) == 0 {
+			break
+		}
+		cur := strs[i]
+		index := 0
+		short := min(len(cur), len(res))
+		for (index < short) && cur[index] == res[index] {
+			index++
+		}
+		res = res[:index]
+	}
+	return res
 }
 
-//leetcode submit region end(Prohibit modification and deletion)
+func min(x, y int) int {
+	if x > y {
+		return y
+	} else {
+		return x
+	}
+}
+
+// leetcode submit region end(Prohibit modification and deletion)
+func tricks(strs []string) string {
+	res := strs[0]
+	for i := 1; i < len(strs); i++ {
+		if len(res) == 0 {
+			return ""
+		}
+		cur := strs[i]
+		for strings.Index(cur, res) != 0 {
+			if len(cur) == 0 {
+				return ""
+			}
+			res = res[:len(res)-1]
+		}
+	}
+	return res
+}
 
 func TestLongestCommonPrefix(t *testing.T) {
-
+	prefix := longestCommonPrefix([]string{"c", "acc", "ccc"})
+	fmt.Println(prefix)
+	reflect.DeepEqual(prefix, "")
+	prefix = longestCommonPrefix([]string{"", "b"})
+	fmt.Println(prefix)
+	reflect.DeepEqual(prefix, "")
+	prefix = longestCommonPrefix([]string{"ab", "a"})
+	fmt.Println(prefix)
+	reflect.DeepEqual(prefix, "a")
 }
