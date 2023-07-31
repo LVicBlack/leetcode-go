@@ -52,6 +52,39 @@ import (
 
 // leetcode submit region begin(Prohibit modification and deletion)
 func rotate(nums []int, k int) {
+	rotation := gcd(k, len(nums))
+	// 环状替换
+	for i := 0; i < rotation; i++ {
+		next := i
+		prev := nums[i]
+		var temp int
+		for {
+			next = (next + k) % len(nums)
+			temp = nums[next]
+			nums[next] = prev
+			prev = temp
+
+			if next == i {
+				break
+			}
+		}
+
+	}
+
+}
+
+func gcd(x, y int) int {
+	if y > 0 {
+		return gcd(y, x%y)
+	} else {
+		return x
+	}
+}
+
+//leetcode submit region end(Prohibit modification and deletion)
+
+// 数组反转
+func rotate1(nums []int, k int) {
 	k = k % len(nums)
 	reserve(nums, 0, len(nums)-1)
 	reserve(nums, 0, k-1)
@@ -68,11 +101,11 @@ func reserve(nums []int, start, end int) {
 		end--
 	}
 }
-
-//leetcode submit region end(Prohibit modification and deletion)
-
 func TestRotateArray(t *testing.T) {
 	nums := []int{1, 2, 3, 4, 5, 6, 7}
 	rotate(nums, 3)
+	fmt.Println(nums)
+	nums = []int{-1, -100, 3, 99}
+	rotate(nums, 2)
 	fmt.Println(nums)
 }
