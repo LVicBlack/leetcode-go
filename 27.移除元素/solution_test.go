@@ -65,7 +65,22 @@ import (
 // Related Topics 数组 双指针 👍 1897 👎 0
 
 // leetcode submit region begin(Prohibit modification and deletion)
+// 拷贝覆盖
 func removeElement(nums []int, val int) int {
+	index := 0
+	for _, v := range nums {
+		if v != val {
+			nums[index] = v
+			index++
+		}
+	}
+	return index
+}
+
+//leetcode submit region end(Prohibit modification and deletion)
+
+// go的for循环可以在循环体内直接替换，使用slice的underlying array特性可以优化计算
+func removeElement1(nums []int, val int) int {
 	for i := 0; i < len(nums); {
 		if nums[i] == val {
 			nums = append(nums[:i], nums[i+1:]...)
@@ -75,8 +90,6 @@ func removeElement(nums []int, val int) int {
 	}
 	return len(nums)
 }
-
-//leetcode submit region end(Prohibit modification and deletion)
 
 func TestRemoveElement(t *testing.T) {
 	nums := []int{1, 2, 3, 1}
