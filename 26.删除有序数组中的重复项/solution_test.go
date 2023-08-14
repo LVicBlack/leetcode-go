@@ -65,7 +65,23 @@ import (
 // Related Topics 数组 双指针 👍 3258 👎 0
 
 // leetcode submit region begin(Prohibit modification and deletion)
+
+// 双指针, index 维护结果数组
 func removeDuplicates(nums []int) int {
+	index := 1
+	for i := 1; i < len(nums); i++ {
+		if nums[i] != nums[i-1] {
+			nums[index] = nums[i]
+			index++
+		}
+	}
+	return index
+}
+
+//leetcode submit region end(Prohibit modification and deletion)
+
+// slice 底层数组特性
+func removeDuplicates1(nums []int) int {
 	for i := 1; i < len(nums); {
 		if nums[i] == nums[i-1] {
 			nums = append(nums[:i], nums[i+1:]...)
@@ -75,8 +91,6 @@ func removeDuplicates(nums []int) int {
 	}
 	return len(nums)
 }
-
-//leetcode submit region end(Prohibit modification and deletion)
 
 func TestRemoveDuplicatesFromSortedArray(t *testing.T) {
 	nums := []int{0, 0, 1, 1, 1, 2, 2, 3, 3, 4}
