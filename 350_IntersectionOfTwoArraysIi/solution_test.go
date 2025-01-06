@@ -44,7 +44,7 @@ import (
 //
 // Related Topics 数组 哈希表 双指针 二分查找 排序 👍 984 👎 0
 
-//leetcode submit region begin(Prohibit modification and deletion)
+// leetcode submit region begin(Prohibit modification and deletion)
 func intersect(nums1 []int, nums2 []int) []int {
 	kv := map[int]int{}
 	for _, i := range nums1 {
