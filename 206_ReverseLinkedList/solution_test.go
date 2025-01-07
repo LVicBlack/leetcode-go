@@ -3,6 +3,7 @@ package leetcode
 import (
 	"encoding/json"
 	"fmt"
+	"lc_p/structures"
 	"testing"
 )
 
@@ -58,10 +59,10 @@ import (
  * Definition for singly-linked list.
 
  */
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
+/**
+ * submit前注释
+ */
+type ListNode = structures.ListNode
 
 func reverseList(head *ListNode) *ListNode {
 	var prev *ListNode
