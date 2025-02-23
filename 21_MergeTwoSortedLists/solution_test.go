@@ -1,7 +1,6 @@
 package leetcode
 
 import (
-	"encoding/json"
 	"fmt"
 	"lc_p/structures"
 	"testing"
@@ -79,19 +78,15 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 //leetcode submit region end(Prohibit modification and deletion)
 
 func TestMergeTwoSortedLists(t *testing.T) {
-	//list1 := &ListNode{1, &ListNode{2, &ListNode{4, nil}}}
-	list1 := &ListNode{}
-	data1, _ := json.Marshal(list1)
-	fmt.Println(string(data1))
-	//list2 := &ListNode{1, &ListNode{3, &ListNode{4, nil}}}
-	list2 := &ListNode{}
-	data2, _ := json.Marshal(list2)
-	fmt.Println(string(data2))
-	list3 := mergeTwoLists(nil, nil)
-	data3, _ := json.Marshal(list3)
-	fmt.Println(string(data3))
-	data11, _ := json.Marshal(list1)
-	fmt.Println(string(data11))
-	data22, _ := json.Marshal(list2)
-	fmt.Println(string(data22))
+	list1 := structures.Ints2List([]int{1, 2, 4})
+	//list1 := &ListNode{}
+	fmt.Printf("list1: %v \n", structures.List2Ints(list1))
+	list2 := structures.Ints2List([]int{1, 3, 4})
+	//list2 := &ListNode{}
+	fmt.Printf("list2: %v \n", structures.List2Ints(list2))
+	//list3 := mergeTwoLists(nil, nil)
+	list3 := mergeTwoLists(list1, list2)
+	fmt.Printf("list3 merge: %v \n", structures.List2Ints(list3))
+	fmt.Printf("list1: %v \n", structures.List2Ints(list1))
+	fmt.Printf("list2: %v \n", structures.List2Ints(list2))
 }
