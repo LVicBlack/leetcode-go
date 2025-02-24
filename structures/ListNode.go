@@ -9,6 +9,9 @@ type ListNode struct {
 
 // List2Ints convert List to []int
 func List2Ints(head *ListNode) []int {
+	if head == nil {
+		return nil
+	}
 	// 链条深度限制，链条深度超出此限制，会 panic
 	limit := 100
 

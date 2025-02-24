@@ -2,6 +2,7 @@ package leetcode
 
 import (
 	"fmt"
+	"github.com/stretchr/testify/assert"
 	"lc_p/structures"
 	"testing"
 )
@@ -75,18 +76,46 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	return dummyNode.Next
 }
 
-//leetcode submit region end(Prohibit modification and deletion)
+// leetcode submit region end(Prohibit modification and deletion)
+
+type question21 struct {
+	para21
+	ans21
+}
+type para21 struct {
+	list1 []int
+	list2 []int
+}
+type ans21 struct {
+	mergeResult []int
+}
+
+var qs = []question21{
+
+	{
+		para21{[]int{1, 2, 4}, []int{1, 3, 4}},
+		ans21{[]int{1, 1, 2, 3, 4, 4}},
+	},
+
+	{
+		para21{nil, nil},
+		ans21{nil},
+	},
+}
 
 func TestMergeTwoSortedLists(t *testing.T) {
-	list1 := structures.Ints2List([]int{1, 2, 4})
-	//list1 := &ListNode{}
-	fmt.Printf("list1: %v \n", structures.List2Ints(list1))
-	list2 := structures.Ints2List([]int{1, 3, 4})
-	//list2 := &ListNode{}
-	fmt.Printf("list2: %v \n", structures.List2Ints(list2))
-	//list3 := mergeTwoLists(nil, nil)
-	list3 := mergeTwoLists(list1, list2)
-	fmt.Printf("list3 merge: %v \n", structures.List2Ints(list3))
-	fmt.Printf("list1: %v \n", structures.List2Ints(list1))
-	fmt.Printf("list2: %v \n", structures.List2Ints(list2))
+	for i, q := range qs {
+		testName := fmt.Sprintf("%s%v", "test", i)
+		t.Run(testName, func(t *testing.T) {
+			list1 := structures.Ints2List(q.list1)
+			fmt.Printf("list1: %v \n", structures.List2Ints(list1))
+			list2 := structures.Ints2List(q.list2)
+			fmt.Printf("list2: %v \n", structures.List2Ints(list2))
+
+			mergeResult := mergeTwoLists(list1, list2)
+			mergeResultArray := structures.List2Ints(mergeResult)
+			fmt.Printf("list3 merge: %v \n", mergeResultArray)
+			assert.Equal(t, mergeResultArray, q.mergeResult, "The two words should be the same.")
+		})
+	}
 }
