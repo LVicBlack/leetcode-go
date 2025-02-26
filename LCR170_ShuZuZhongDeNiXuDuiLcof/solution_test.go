@@ -101,6 +101,10 @@ var qs = []qsLCR170{
 		[]int{9, 7, 5, 4, 6},
 		8,
 	},
+	{
+		[]int{6, 6, 6, 6, 6},
+		0,
+	},
 }
 
 func TestShuZuZhongDeNiXuDuiLcof(t *testing.T) {
