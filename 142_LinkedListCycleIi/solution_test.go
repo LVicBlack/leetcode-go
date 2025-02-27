@@ -54,7 +54,7 @@ import (
 */
 type ListNode = structures.ListNode
 
-//leetcode submit region begin(Prohibit modification and deletion)
+// leetcode submit region begin(Prohibit modification and deletion)
 /**
  * Definition for singly-linked list.
  * type ListNode struct {
@@ -62,7 +62,49 @@ type ListNode = structures.ListNode
  *     Next *ListNode
  * }
  */
+// detectCycle 快慢指针
+//
+// 假设进环前长度 = a, 入环距离相遇长度 = b, 环剩余长度 = c,
+// fast 是 slow 的两倍，可以得出如下公式
+//
+// 2(a+b) = a + b + n(b+c) ---> a = (n-1)(b+c) + c
+//
+// 所以在fast & slow 相遇后, slow 从相遇点出发, head 从头节点出发, 最终会在入环点相遇
+//
+// tips:
+// 1. 为何慢指针第一圈走不完一定会和快指针相遇?
+//
+// 可以认为快指针和慢指针是相对运动的，假设慢指针的速度是 1节点/秒，快指针的速度是 2节点/秒，当以慢指针为参考系的话（即慢指针静止），快指针的移动速度就是 1节点/秒，所以肯定会相遇。
+//
+// 2. 为什么在第一圈就会相遇呢？
+//
+// 设环的长度为 L，当慢指针刚进入环时，慢指针需要走 L 步(即 L 秒)才能走完一圈，此时快指针距离慢指针的最大距离为 L-1，我们再次以慢指针为参考系，如上所说，快指针在按照1节点/秒的速度在追赶慢指针，所以肯定能在 L 秒内追赶到慢指针。
 func detectCycle(head *ListNode) *ListNode {
+	if head == nil {
+		return nil
+	}
+
+	fast, slow := head, head
+	for fast.Next != nil && fast.Next.Next != nil {
+		fast = fast.Next.Next
+		slow = slow.Next
+		if fast == slow {
+			p := head
+			for p != slow {
+				p = p.Next
+				slow = slow.Next
+			}
+			return p
+		}
+	}
+
+	return nil
+}
+
+// leetcode submit region end(Prohibit modification and deletion)
+
+// detectCycle1  哈希表
+func detectCycle1(head *ListNode) *ListNode {
 	set := make(map[*ListNode]struct{})
 	for head != nil {
 		if _, ok := set[head]; ok {
@@ -74,9 +116,6 @@ func detectCycle(head *ListNode) *ListNode {
 
 	return nil
 }
-
-//leetcode submit region end(Prohibit modification and deletion)
-
 func TestLinkedListCycleIi(t *testing.T) {
 
 }
